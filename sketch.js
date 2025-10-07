@@ -32,15 +32,10 @@ function draw() {
     ellipse(x - 15 * scale, y - 15 * scale, 55 * scale, 55 * scale);
   }
 
-  // Dibujar y mover nubes
   for (let i = 0; i < cloudX.length; i++) {
     drawCloud(cloudX[i], cloudY[i], 1.2 + 0.2 * i);
     cloudX[i] += cloudSpeed[i];
-
-    // Si salen de la pantalla, reaparecen
-    if (cloudX[i] > width + 100) {
-      cloudX[i] = -100;
-    }
+    if (cloudX[i] > width + 100) cloudX[i] = -100;
   }
 
   // --- 🌊 MAR ---
@@ -72,7 +67,7 @@ function draw() {
     line(0, y, width, y);
   }
 
-  // Forma de la isla
+  // Isla
   noStroke();
   fill(255, 200, 90, 230);
   beginShape();
@@ -90,15 +85,21 @@ function draw() {
   textSize(150);
   text("🌴", 550, 520);
 
-  // --- 🧡 CORAZÓN NARANJA ANIMADO ---
+  // --- 🧡 CORAZÓN NARANJA REAL ---
   push();
-  heartPulse = sin(frameCount * 0.05) * 0.05; // efecto latido
+  heartPulse = sin(frameCount * 0.05) * 0.05;
   translate(400, 300);
-  scale(1 + heartPulse);
-  fill(255, 140, 0); // Naranja
+  scale(3 + heartPulse); // agranda el corazón
   noStroke();
-  textSize(500);
-  text("❤️", 0, 0);
+  fill(255, 140, 0); // naranja
+
+  beginShape();
+  vertex(0, 0);
+  bezierVertex(-30, -30, -70, -10, -70, 30);
+  bezierVertex(-70, 60, -40, 90, 0, 110);
+  bezierVertex(40, 90, 70, 60, 70, 30);
+  bezierVertex(70, -10, 30, -30, 0, 0);
+  endShape(CLOSE);
   pop();
 
   // --- TEXTO "Un verano sin ti" ---
