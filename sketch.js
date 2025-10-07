@@ -1,17 +1,12 @@
-let clouds = []; // arreglo de nubes animadas
-
 function setup() {
   createCanvas(800, 600);
   textAlign(CENTER, CENTER);
-  noStroke();
-
-  // Crear nubes con posición inicial, escala y velocidad
-  clouds = [
-    { x: 150, y: 100, scale: 1.2, speed: 0.3 },
-    { x: 600, y: 80, scale: 1.5, speed: 0.2 },
-    { x: 400, y: 50, scale: 1.0, speed: 0.4 }
-  ];
 }
+
+let cloudX = [150, 600, 400];
+let cloudY = [100, 80, 50];
+let cloudSpeed = [0.3, 0.2, 0.4];
+let heartPulse = 0;
 
 function draw() {
   background(255);
@@ -27,12 +22,24 @@ function draw() {
   }
 
   // --- ☁️ NUBES ANIMADAS ---
-  noStroke();
-  for (let c of clouds) {
-    drawCloud(c.x, c.y, c.scale);
-    c.x += c.speed; // movimiento suave
-    if (c.x - 100 > width) {
-      c.x = -100; // reaparece por la izquierda
+  function drawCloud(x, y, scale) {
+    fill(255, 255, 255, 230);
+    noStroke();
+    ellipse(x, y, 60 * scale, 60 * scale);
+    ellipse(x + 30 * scale, y + 10 * scale, 50 * scale, 50 * scale);
+    ellipse(x - 30 * scale, y + 10 * scale, 50 * scale, 50 * scale);
+    ellipse(x + 15 * scale, y - 15 * scale, 55 * scale, 55 * scale);
+    ellipse(x - 15 * scale, y - 15 * scale, 55 * scale, 55 * scale);
+  }
+
+  // Dibujar y mover nubes
+  for (let i = 0; i < cloudX.length; i++) {
+    drawCloud(cloudX[i], cloudY[i], 1.2 + 0.2 * i);
+    cloudX[i] += cloudSpeed[i];
+
+    // Si salen de la pantalla, reaparecen
+    if (cloudX[i] > width + 100) {
+      cloudX[i] = -100;
     }
   }
 
@@ -44,14 +51,14 @@ function draw() {
     line(0, y, width, y);
   }
 
-  // 🌊 Olas animadas
+  // Olas
   noFill();
   stroke(255, 255, 255, 100);
   strokeWeight(2);
   for (let y = height / 2 + 15; y < height * 0.75; y += 20) {
     beginShape();
     for (let x = 0; x <= width; x += 20) {
-      let wave = sin(x * 0.05 + y * 0.1 + frameCount * 0.05) * 5; // animación suave
+      let wave = sin(x * 0.05 + frameCount * 0.05) * 5;
       vertex(x, y + wave);
     }
     endShape();
@@ -65,7 +72,7 @@ function draw() {
     line(0, y, width, y);
   }
 
-  // 🏝️ Forma de la isla
+  // Forma de la isla
   noStroke();
   fill(255, 200, 90, 230);
   beginShape();
@@ -83,12 +90,15 @@ function draw() {
   textSize(150);
   text("🌴", 550, 520);
 
-  // --- ❤️ CORAZÓN ---
+  // --- 🧡 CORAZÓN NARANJA ANIMADO ---
   push();
-  fill(255, 0, 0);
+  heartPulse = sin(frameCount * 0.05) * 0.05; // efecto latido
+  translate(400, 300);
+  scale(1 + heartPulse);
+  fill(255, 140, 0); // Naranja
   noStroke();
   textSize(500);
-  text("❤️", 400, 300);
+  text("❤️", 0, 0);
   pop();
 
   // --- TEXTO "Un verano sin ti" ---
@@ -96,18 +106,8 @@ function draw() {
   textFont("Georgia");
   textSize(50);
   for (let i = 0; i < 10; i++) {
-    fill(255, 150 + i * 10, 50 + i * 5); // colores cálidos con sombra
+    fill(255, 150 + i * 10, 50 + i * 5);
     text("Un verano sin ti", 400, 550 - i * 2);
   }
   pop();
-}
-
-// --- ☁️ FUNCIÓN PARA DIBUJAR NUBES ---
-function drawCloud(x, y, scale) {
-  fill(255, 255, 255, 230);
-  ellipse(x, y, 60 * scale, 60 * scale);
-  ellipse(x + 30 * scale, y + 10 * scale, 50 * scale, 50 * scale);
-  ellipse(x - 30 * scale, y + 10 * scale, 50 * scale, 50 * scale);
-  ellipse(x + 15 * scale, y - 15 * scale, 55 * scale, 55 * scale);
-  ellipse(x - 15 * scale, y - 15 * scale, 55 * scale, 55 * scale);
 }
