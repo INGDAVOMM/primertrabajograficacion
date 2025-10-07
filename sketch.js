@@ -1,11 +1,11 @@
-let clouds = []; // arreglo para las nubes animadas
+let clouds = []; // arreglo de nubes animadas
 
 function setup() {
   createCanvas(800, 600);
   textAlign(CENTER, CENTER);
   noStroke();
 
-  // --- ☁️ Crear nubes iniciales con posición, escala y velocidad ---
+  // Crear nubes con posición inicial, escala y velocidad
   clouds = [
     { x: 150, y: 100, scale: 1.2, speed: 0.3 },
     { x: 600, y: 80, scale: 1.5, speed: 0.2 },
@@ -30,9 +30,9 @@ function draw() {
   noStroke();
   for (let c of clouds) {
     drawCloud(c.x, c.y, c.scale);
-    c.x += c.speed; // mover nubes hacia la derecha
+    c.x += c.speed; // movimiento suave
     if (c.x - 100 > width) {
-      c.x = -100; // reaparecen por la izquierda
+      c.x = -100; // reaparece por la izquierda
     }
   }
 
@@ -96,13 +96,13 @@ function draw() {
   textFont("Georgia");
   textSize(50);
   for (let i = 0; i < 10; i++) {
-    fill(255, 150 + i * 10, 50 + i * 5); // colores cálidos con efecto sombra
+    fill(255, 150 + i * 10, 50 + i * 5); // colores cálidos con sombra
     text("Un verano sin ti", 400, 550 - i * 2);
   }
   pop();
 }
 
-// --- ☁️ FUNCIÓN PARA DIBUJAR UNA NUBE ---
+// --- ☁️ FUNCIÓN PARA DIBUJAR NUBES ---
 function drawCloud(x, y, scale) {
   fill(255, 255, 255, 230);
   ellipse(x, y, 60 * scale, 60 * scale);
