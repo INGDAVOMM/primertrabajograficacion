@@ -85,22 +85,25 @@ function draw() {
   textSize(150);
   text("🌴", 550, 520);
 
-  // --- 🧡 CORAZÓN NARANJA REAL ---
-  push();
-  heartPulse = sin(frameCount * 0.05) * 0.05;
-  translate(400, 300);
-  scale(3 + heartPulse); // agranda el corazón
-  noStroke();
-  fill(255, 140, 0); // naranja
+// --- 🧡 CORAZÓN NARANJA REAL ---
+push();
+heartPulse = sin(frameCount * 0.05) * 0.05;
+translate(400, 300);
+scale(3 + heartPulse); // agranda el corazón
+noStroke();
 
-  beginShape();
-  vertex(0, 0);
-  bezierVertex(-30, -30, -70, -10, -70, 30);
-  bezierVertex(-70, 60, -40, 90, 0, 110);
-  bezierVertex(40, 90, 70, 60, 70, 30);
-  bezierVertex(70, -10, 30, -30, 0, 0);
-  endShape(CLOSE);
-  pop();
+// Color naranja brillante real (mezcla de rojo y amarillo)
+fill(255, 165, 0); // 🔸 tono real de naranja (como "orange" en CSS)
+
+beginShape();
+vertex(0, 0);
+bezierVertex(-30, -30, -70, -10, -70, 30);
+bezierVertex(-70, 60, -40, 90, 0, 110);
+bezierVertex(40, 90, 70, 60, 70, 30);
+bezierVertex(70, -10, 30, -30, 0, 0);
+endShape(CLOSE);
+pop();
+
 
   // --- TEXTO "Un verano sin ti" ---
   push();
