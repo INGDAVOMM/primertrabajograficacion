@@ -1,7 +1,16 @@
+let clouds = []; // arreglo para las nubes animadas
+
 function setup() {
   createCanvas(800, 600);
-  noLoop();
   textAlign(CENTER, CENTER);
+  noStroke();
+
+  // --- ☁️ Crear nubes iniciales con posición, escala y velocidad ---
+  clouds = [
+    { x: 150, y: 100, scale: 1.2, speed: 0.3 },
+    { x: 600, y: 80, scale: 1.5, speed: 0.2 },
+    { x: 400, y: 50, scale: 1.0, speed: 0.4 }
+  ];
 }
 
 function draw() {
@@ -17,20 +26,15 @@ function draw() {
     line(0, y, width, y);
   }
 
-  // --- ☁️ NUBES BONITAS ---
-  function drawCloud(x, y, scale) {
-    fill(255, 255, 255, 230);
-    noStroke();
-    ellipse(x, y, 60*scale, 60*scale);
-    ellipse(x + 30*scale, y + 10*scale, 50*scale, 50*scale);
-    ellipse(x - 30*scale, y + 10*scale, 50*scale, 50*scale);
-    ellipse(x + 15*scale, y - 15*scale, 55*scale, 55*scale);
-    ellipse(x - 15*scale, y - 15*scale, 55*scale, 55*scale);
+  // --- ☁️ NUBES ANIMADAS ---
+  noStroke();
+  for (let c of clouds) {
+    drawCloud(c.x, c.y, c.scale);
+    c.x += c.speed; // mover nubes hacia la derecha
+    if (c.x - 100 > width) {
+      c.x = -100; // reaparecen por la izquierda
+    }
   }
-
-  drawCloud(150, 100, 1.2);
-  drawCloud(600, 80, 1.5);
-  drawCloud(400, 50, 1);
 
   // --- 🌊 MAR ---
   for (let y = height / 2; y < height * 0.75; y++) {
@@ -40,14 +44,14 @@ function draw() {
     line(0, y, width, y);
   }
 
-  // Olas
+  // 🌊 Olas animadas
   noFill();
   stroke(255, 255, 255, 100);
   strokeWeight(2);
   for (let y = height / 2 + 15; y < height * 0.75; y += 20) {
     beginShape();
     for (let x = 0; x <= width; x += 20) {
-      let wave = sin(x * 0.05 + y * 0.1) * 5;
+      let wave = sin(x * 0.05 + y * 0.1 + frameCount * 0.05) * 5; // animación suave
       vertex(x, y + wave);
     }
     endShape();
@@ -61,7 +65,7 @@ function draw() {
     line(0, y, width, y);
   }
 
-  // Forma de la isla
+  // 🏝️ Forma de la isla
   noStroke();
   fill(255, 200, 90, 230);
   beginShape();
@@ -79,7 +83,7 @@ function draw() {
   textSize(150);
   text("🌴", 550, 520);
 
-  // --- ❤️ CORAZÓN COMPLETO ROJO ---
+  // --- ❤️ CORAZÓN ---
   push();
   fill(255, 0, 0);
   noStroke();
@@ -87,37 +91,23 @@ function draw() {
   text("❤️", 400, 300);
   pop();
 
-  // --- CARA TRISTE GIRADA 270 GRADOS ---
-  //push();
-  //translate(400, 300);
-  //rotate(PI * 2.5); // 270 grados
-  //fill(0);
-  //textSize(100);
-  //text(":(", 0, 0);
-  //pop();
-
   // --- TEXTO "Un verano sin ti" ---
   push();
   textFont("Georgia");
   textSize(50);
   for (let i = 0; i < 10; i++) {
-    fill(255, 150 + i * 10, 50 + i * 5); // colores cálidos
+    fill(255, 150 + i * 10, 50 + i * 5); // colores cálidos con efecto sombra
     text("Un verano sin ti", 400, 550 - i * 2);
   }
   pop();
+}
 
-  // --- 🌸 FLORES ROSAS DETALLADAS ---
-  //function drawFlower(x, y, size) {
-    //fill(255, 100, 180);
-    //for (let i = 0; i < 5; i++) {
-      //ellipse(x + cos(TWO_PI/5*i) * size/2, y + sin(TWO_PI/5*i) * size/2, size/2, size/2);
-    //}
-    //fill(255, 220, 0); // centro amarillo
-    //ellipse(x, y, size/3, size/3);
-  //}
-
-  //drawFlower(100, 500, 30);
-  //drawFlower(200, 520, 30);
-  //drawFlower(600, 500, 30);
-  //drawFlower(700, 520, 30);
+// --- ☁️ FUNCIÓN PARA DIBUJAR UNA NUBE ---
+function drawCloud(x, y, scale) {
+  fill(255, 255, 255, 230);
+  ellipse(x, y, 60 * scale, 60 * scale);
+  ellipse(x + 30 * scale, y + 10 * scale, 50 * scale, 50 * scale);
+  ellipse(x - 30 * scale, y + 10 * scale, 50 * scale, 50 * scale);
+  ellipse(x + 15 * scale, y - 15 * scale, 55 * scale, 55 * scale);
+  ellipse(x - 15 * scale, y - 15 * scale, 55 * scale, 55 * scale);
 }
