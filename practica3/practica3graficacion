@@ -1,55 +1,40 @@
-# ✨ Programa en Python: Suma de dos números con interfaz gráfica
-# Autor: Tu nombre
-# Descripción: Muestra una ventana con campos de entrada y un botón para sumar dos números
-
 import tkinter as tk
 from tkinter import messagebox
 
 def sumar():
     try:
-        # Obtener los valores de los campos de entrada
-        num1 = float(entry_num1.get())
-        num2 = float(entry_num2.get())
+        num1 = float(entry1.get())
+        num2 = float(entry2.get())
         resultado = num1 + num2
-
-        # Mostrar el resultado en la etiqueta
         label_resultado.config(text=f"Resultado: {resultado}")
-
-        # También mostrar un mensaje emergente
-        messagebox.showinfo("Resultado", f"La suma de {num1} + {num2} es = {resultado}")
+        messagebox.showinfo("Resultado", f"La suma es: {resultado}")
     except ValueError:
-        messagebox.showerror("Error", "Por favor ingresa números válidos.")
+        messagebox.showerror("Error", "Por favor, ingresa solo números válidos.")
 
-# Crear la ventana principal
+# Crear ventana principal
 ventana = tk.Tk()
 ventana.title("🧮 Suma de dos números")
-ventana.geometry("300x250")
-ventana.configure(bg="#f0f0f0")
+ventana.geometry("350x250")
+ventana.config(bg="#f0f8ff")
 
-# Etiqueta título
-label_titulo = tk.Label(ventana, text="Calculadora de Suma", font=("Arial", 14, "bold"), bg="#f0f0f0")
-label_titulo.pack(pady=10)
+# Etiquetas y campos de entrada
+tk.Label(ventana, text="Número 1:", bg="#f0f8ff", font=("Arial", 12)).pack(pady=5)
+entry1 = tk.Entry(ventana, font=("Arial", 12))
+entry1.pack()
 
-# Entrada para número 1
-label_num1 = tk.Label(ventana, text="Primer número:", bg="#f0f0f0")
-label_num1.pack()
-entry_num1 = tk.Entry(ventana, justify="center")
-entry_num1.pack(pady=5)
-
-# Entrada para número 2
-label_num2 = tk.Label(ventana, text="Segundo número:", bg="#f0f0f0")
-label_num2.pack()
-entry_num2 = tk.Entry(ventana, justify="center")
-entry_num2.pack(pady=5)
+tk.Label(ventana, text="Número 2:", bg="#f0f8ff", font=("Arial", 12)).pack(pady=5)
+entry2 = tk.Entry(ventana, font=("Arial", 12))
+entry2.pack()
 
 # Botón para sumar
-btn_sumar = tk.Button(ventana, text="Sumar", command=sumar, bg="#4CAF50", fg="white", font=("Arial", 10, "bold"))
-btn_sumar.pack(pady=10)
+boton_sumar = tk.Button(ventana, text="➕ Sumar", command=sumar, font=("Arial", 12), bg="#add8e6")
+boton_sumar.pack(pady=10)
 
-# Etiqueta para mostrar resultado
-label_resultado = tk.Label(ventana, text="Resultado: ", font=("Arial", 12), bg="#f0f0f0")
+# Resultado
+label_resultado = tk.Label(ventana, text="Resultado: ", bg="#f0f8ff", font=("Arial", 12, "bold"))
 label_resultado.pack(pady=5)
 
-# Iniciar el bucle de la ventana
+# 🔹 Vincular tecla Enter con la función sumar()
+ventana.bind("<Return>", lambda event: sumar())
+
 ventana.mainloop()
-python3 suma_gui.py
