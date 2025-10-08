@@ -1,0 +1,13 @@
+# 🧮 Programa: Suma de dos números
+# Autor: Tu nombre
+# Descripción: Pide dos números al usuario y muestra la suma
+
+# Solicitar los números
+num1 = float(input("Ingresa el primer número: "))
+num2 = float(input("Ingresa el segundo número: "))
+
+# Calcular la suma
+suma = num1 + num2
+
+# Mostrar el resultado
+print(f"La suma de {num1} + {num2} es = {suma}")
